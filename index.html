@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="theme-color" content="#FDFBF7">
+<title>كنز السنة — Treasure of the Sunnah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;800&family=Reem+Kufi:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style type="text/tailwindcss">
+  @custom-variant dark (&:where(.dark, .dark *));
+  @theme {
+    --color-cream: #FDFBF7;
+    --color-sand: #F4EBE1;
+    --color-sand2: #EADFD0;
+    --color-gold: #C9A227;
+    --color-clay: #A9815B;
+    --color-clay-dark: #8A6742;
+    --color-ink: #3B2F2A;
+    --color-navy: #0E1626;
+    --color-navy2: #16203450;
+    --color-night: #141C2E;
+    --color-night2: #1C2740;
+    --color-cocoa: #241C18;
+    --font-sans: "Tajawal", system-ui, sans-serif;
+  }
+</style>
+<style>
+  html,body{-webkit-tap-highlight-color:transparent;}
+  body{font-family:"Tajawal",system-ui,sans-serif;}
+  .font-amiri{font-family:"Amiri",serif;}
+  .font-kufi{font-family:"Reem Kufi","Tajawal",sans-serif;}
+  ::-webkit-scrollbar{width:0px;height:0px}
+  .noscroll{overflow:hidden}
+
+  /* Splash */
+  #splash{transition:opacity .8s ease, visibility .8s ease}
+  .glow{
+    background: radial-gradient(circle at 50% 55%, rgba(255,241,196,.95) 0%, rgba(255,226,150,.65) 22%, rgba(255,206,110,.30) 42%, rgba(255,196,80,0) 70%);
+    animation: pulseGlow 3s ease-in-out infinite;
+  }
+  @keyframes pulseGlow{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.12);opacity:1}}
+  @keyframes floatUp{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)}}
+  .floaty{animation:floatUp 4s ease-in-out infinite}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  .fade-up{animation:fadeUp .55s cubic-bezier(.22,1,.36,1) both}
+  @keyframes sparkle{0%,100%{opacity:.15;transform:scale(.8)}50%{opacity:1;transform:scale(1.15)}}
+  .spark{animation:sparkle 2.4s ease-in-out infinite}
+
+  /* View transitions */
+  .view{display:none}
+  .view.active{display:block;animation:viewIn .42s cubic-bezier(.22,1,.36,1) both}
+  @keyframes viewIn{from{opacity:0;transform:translateY(14px) scale(.995)}to{opacity:1;transform:none}}
+
+  .card-shadow{box-shadow:0 10px 30px -12px rgba(90,64,42,.28), 0 2px 6px -2px rgba(90,64,42,.10)}
+  .dark .card-shadow{box-shadow:0 14px 34px -14px rgba(0,0,0,.75), 0 2px 6px -2px rgba(0,0,0,.4)}
+  .press{transition:transform .18s ease, box-shadow .25s ease}
+  .press:active{transform:scale(.96)}
+
+  .modal-in{animation:modalIn .35s cubic-bezier(.22,1,.36,1) both}
+  @keyframes modalIn{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+  .pattern{
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(169,129,91,.16) 1px, transparent 0);
+    background-size:18px 18px;
+  }
+  .dark .pattern{background-image:radial-gradient(circle at 1px 1px, rgba(201,162,39,.12) 1px, transparent 0);}
+  .ring-soft{box-shadow:inset 0 0 0 1px rgba(169,129,91,.18)}
+  .dark .ring-soft{box-shadow:inset 0 0 0 1px rgba(255,255,255,.07)}
+</style>
+</head>
+<body class="bg-cream dark:bg-navy text-ink dark:text-stone-200 transition-colors duration-500 min-h-screen">
+
+<!-- ============ SPLASH SCREEN ============ -->
+<div id="splash" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#F7F0E6] dark:bg-[#0B111E]">
+  <div class="absolute inset-0 pattern opacity-60"></div>
+  <div class="absolute top-10 right-10 w-2 h-2 rounded-full bg-gold spark"></div>
+  <div class="absolute top-28 left-12 w-1.5 h-1.5 rounded-full bg-clay spark" style="animation-delay:.6s"></div>
+  <div class="absolute bottom-32 right-16 w-1.5 h-1.5 rounded-full bg-gold spark" style="animation-delay:1.2s"></div>
+
+  <div class="relative flex flex-col items-center">
+    <div class="relative w-64 h-64 flex items-center justify-center">
+      <div class="absolute inset-0 glow rounded-full"></div>
+      <!-- Open book SVG -->
+      <svg class="relative w-44 h-44 floaty" viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="pg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#FFFDF6"/><stop offset="100%" stop-color="#F0E3CC"/>
+          </linearGradient>
+          <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#A9815B"/><stop offset="100%" stop-color="#7A5536"/>
+          </linearGradient>
+          <radialGradient id="lg" cx="50%" cy="40%" r="50%">
+            <stop offset="0%" stop-color="#FFF6D4" stop-opacity="1"/><stop offset="100%" stop-color="#FFD98A" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <ellipse cx="60" cy="38" rx="40" ry="34" fill="url(#lg)"/>
+        <path d="M60 46C48 36 32 34 16 38v44c16-4 32-2 44 8V46z" fill="url(#pg)" stroke="url(#bg2)" stroke-width="2.2" stroke-linejoin="round"/>
+        <path d="M60 46c12-10 28-12 44-8v44c-16-4-32-2-44 8V46z" fill="url(#pg)" stroke="url(#bg2)" stroke-width="2.2" stroke-linejoin="round"/>
+        <path d="M60 46v44" stroke="url(#bg2)" stroke-width="2.4" stroke-linecap="round"/>
+        <g stroke="#C9A227" stroke-width="1.6" stroke-linecap="round" opacity=".55">
+          <path d="M26 50h24M26 58h24M26 66h18M70 50h24M70 58h24M70 66h18"/>
+        </g>
+        <g stroke="#C9A227" stroke-width="2" stroke-linecap="round" opacity=".9">
+          <path d="M60 30v-12M60 30 48 20M60 30 72 20M44 34 34 28M76 34 86 28"/>
+        </g>
+      </svg>
+    </div>
+    <h1 class="font-kufi text-5xl text-[#5A3E28] dark:text-[#E9D8B6] mt-2 fade-up" style="animation-delay:.3s">كنز السنة</h1>
+    <p class="mt-3 text-sm tracking-[.3em] text-clay dark:text-[#C9A227] fade-up" style="animation-delay:.6s">TREASURE OF THE SUNNAH</p>
+    <p class="mt-6 font-amiri text-base text-[#8A6742] dark:text-stone-400 fade-up" style="animation-delay:.85s">نورٌ من هدي النبي ﷺ بين يديك</p>
+    <div class="mt-10 w-40 h-1 rounded-full bg-sand2 dark:bg-night2 overflow-hidden fade-up" style="animation-delay:1s">
+      <div id="splashBar" class="h-full w-0 bg-gradient-to-l from-gold to-clay rounded-full transition-[width] duration-[2200ms] ease-out"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+<div id="app" class="max-w-xl mx-auto min-h-screen pb-28 opacity-0 transition-opacity duration-700">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-cream/85 dark:bg-navy/85 border-b border-sand2/70 dark:border-white/5">
+    <div class="px-5 py-3.5 flex items-center justify-between gap-3">
+      <button id="backBtn" class="hidden w-10 h-10 rounded-2xl bg-white dark:bg-night2 ring-soft flex items-center justify-center press shrink-0" aria-label="رجوع">
+        <svg class="w-5 h-5 text-clay dark:text-gold" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+      </button>
+
+      <div class="flex items-center gap-2.5 min-w-0">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#F6E7CC] to-[#E3CCA8] dark:from-night2 dark:to-[#0F1829] flex items-center justify-center ring-soft shrink-0">
+          <svg class="w-5.5 h-5.5 w-[22px] h-[22px] text-clay dark:text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 7C10 5 7 4.5 4 5v12c3-.5 6 0 8 2 2-2 5-2.5 8-2V5c-3-.5-6 0-8 2zm0 0v12"/>
+          </svg>
+        </div>
+        <div class="min-w-0">
+          <h1 id="headerTitle" class="font-kufi text-xl leading-tight text-[#5A3E28] dark:text-[#EBDBBC] truncate">كنز السنة</h1>
+          <p id="headerSub" class="text-[11px] text-clay/80 dark:text-stone-400 truncate">صحيح البخاري ومسلم</p>
+        </div>
+      </div>
+
+      <button id="themeBtn" class="relative w-[62px] h-9 rounded-full bg-sand2 dark:bg-night2 ring-soft press shrink-0" aria-label="تبديل الوضع الليلي">
+        <span id="themeKnob" class="absolute top-1 right-1 w-7 h-7 rounded-full bg-white dark:bg-[#0E1626] shadow-md flex items-center justify-center transition-transform duration-400">
+          <svg id="iconSun" class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17a5 5 0 100-10 5 5 0 000 10zM12 1v3M12 20v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M1 12h3M20 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+          <svg id="iconMoon" class="w-4 h-4 text-gold hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+        </span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ====== VIEW: HOME ====== -->
+  <main id="view-home" class="view active px-5 pt-5">
+    <!-- Greeting -->
+    <div class="flex items-end justify-between mb-4">
+      <div>
+        <p id="greet" class="text-sm text-clay dark:text-stone-400">السلام عليكم ورحمة الله</p>
+        <h2 class="font-kufi text-2xl text-[#5A3E28] dark:text-[#EBDBBC] mt-0.5">كنزك اليومي</h2>
+      </div>
+      <span id="todayDate" class="text-[11px] px-3 py-1.5 rounded-full bg-white dark:bg-night2 ring-soft text-clay dark:text-stone-400"></span>
+    </div>
+
+    <!-- Daily Hadith Card -->
+    <section class="relative rounded-[28px] bg-gradient-to-br from-white to-[#FBF4E9] dark:from-night2 dark:to-[#111A2B] card-shadow ring-soft overflow-hidden fade-up">
+      <div class="absolute -top-10 -left-10 w-40 h-40 rounded-full bg-gold/10 dark:bg-gold/5 blur-2xl"></div>
+      <div class="relative p-6">
+        <div class="flex items-center justify-between mb-4">
+          <span class="inline-flex items-center gap-1.5 text-[11px] font-bold px-3 py-1.5 rounded-full bg-gold/15 text-clay-dark dark:text-gold">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.6 6.3L21 9l-4.8 4.3L17.6 20 12 16.6 6.4 20l1.4-6.7L3 9l6.4-.7L12 2z"/></svg>
+            كنز اليوم
+          </span>
+          <button id="dailyFav" class="w-9 h-9 rounded-full bg-sand/70 dark:bg-white/5 flex items-center justify-center press" aria-label="حفظ">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path stroke-linecap="round" stroke-linejoin="round" d="M12 20.5s-7.5-4.7-7.5-9.8A4.2 4.2 0 0112 8.4a4.2 4.2 0 017.5 2.3c0 5.1-7.5 9.8-7.5 9.8z"/></svg>
+          </button>
+        </div>
+
+        <svg class="w-8 h-8 text-clay/25 dark:text-gold/25 mb-2" fill="currentColor" viewBox="0 0 24 24"><path d="M9.6 7C6.5 7 4 9.5 4 12.6 4 15.6 6.2 18 9.1 18c2.3 0 3.6-1.5 3.6-3.3 0-1.9-1.3-3.2-3.1-3.2-.4 0-.8.1-1 .2.3-1.3 1.6-2.7 3.4-3.3L9.6 7zm9 0c-3.1 0-5.6 2.5-5.6 5.6 0 3 2.2 5.4 5.1 5.4 2.3 0 3.6-1.5 3.6-3.3 0-1.9-1.3-3.2-3.1-3.2-.4 0-.8.1-1 .2.3-1.3 1.6-2.7 3.4-3.3L18.6 7z"/></svg>
+
+        <p id="dailyText" class="font-amiri text-[21px] leading-[2.1] text-[#3B2F2A] dark:text-stone-100"></p>
+        <p id="dailyNarr" class="mt-4 text-[12.5px] text-clay dark:text-gold/80 font-medium"></p>
+
+        <div class="grid grid-cols-3 gap-2.5 mt-6">
+          <button id="btnCopy" class="press flex flex-col items-center gap-1 py-3 rounded-2xl bg-sand/80 dark:bg-white/5 ring-soft text-[12px] font-bold text-clay-dark dark:text-stone-300">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6a2 2 0 012-2h9" stroke-linecap="round"/></svg>
+            نسخ
+          </button>
+          <button id="btnShare" class="press flex flex-col items-center gap-1 py-3 rounded-2xl bg-sand/80 dark:bg-white/5 ring-soft text-[12px] font-bold text-clay-dark dark:text-stone-300">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v11M12 4L8 8m4-4l4 4M5 14v4a2 2 0 002 2h10a2 2 0 002-2v-4"/></svg>
+            مشاركة
+          </button>
+          <button id="btnExp" class="press flex flex-col items-center gap-1 py-3 rounded-2xl bg-gradient-to-br from-clay to-clay-dark text-white text-[12px] font-bold shadow-lg shadow-clay/25">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 16v-5M12 8h.01"/></svg>
+            الشرح
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick stats -->
+    <div class="grid grid-cols-3 gap-3 mt-5">
+      <div class="rounded-2xl bg-white dark:bg-night2 ring-soft p-3 text-center card-shadow">
+        <p class="font-kufi text-xl text-clay dark:text-gold">25</p><p class="text-[11px] text-clay/70 dark:text-stone-400 mt-0.5">حديثاً صحيحاً</p>
+      </div>
+      <div class="rounded-2xl bg-white dark:bg-night2 ring-soft p-3 text-center card-shadow">
+        <p id="statAdhkar" class="font-kufi text-xl text-clay dark:text-gold">0</p><p class="text-[11px] text-clay/70 dark:text-stone-400 mt-0.5">ذكراً مكتملاً</p>
+      </div>
+      <div class="rounded-2xl bg-white dark:bg-night2 ring-soft p-3 text-center card-shadow">
+        <p id="statSaved" class="font-kufi text-xl text-clay dark:text-gold">0</p><p class="text-[11px] text-clay/70 dark:text-stone-400 mt-0.5">محفوظاتي</p>
+      </div>
+    </div>
+
+    <!-- Grid Cards -->
+    <h3 class="font-kufi text-lg text-[#5A3E28] dark:text-[#EBDBBC] mt-7 mb-3">الأقسام</h3>
+    <div class="grid grid-cols-2 gap-4">
+      <button data-go="library" class="nav-card group col-span-2 press text-right rounded-[26px] p-5 bg-gradient-to-l from-[#F7EFE2] to-white dark:from-[#1A2439] dark:to-night2 ring-soft card-shadow relative overflow-hidden">
+        <div class="absolute -left-6 -bottom-8 w-32 h-32 rounded-full bg-clay/10 dark:bg-gold/5"></div>
+        <div class="relative flex items-center gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-clay to-clay-dark flex items-center justify-center shadow-lg shadow-clay/25 shrink-0">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 7C10 5 7 4.5 4 5v13c3-.5 6 0 8 2 2-2 5-2.5 8-2V5c-3-.5-6 0-8 2zm0 0v13"/></svg>
+          </div>
+          <div class="flex-1 min-w-0">
+            <h4 class="font-kufi text-[17px] text-[#5A3E28] dark:text-[#EBDBBC]">مكتبة الأحاديث</h4>
+            <p class="text-[12px] text-clay/80 dark:text-stone-400 mt-1">٢٥ حديثاً صحيحاً مع الشرح المبسّط وبحث فوري</p>
+          </div>
+          <svg class="w-5 h-5 text-clay/60 dark:text-gold/60 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+        </div>
+      </button>
+
+      <button data-go="adhkar" class="nav-card press text-right rounded-[26px] p-5 bg-white dark:bg-night2 ring-soft card-shadow relative overflow-hidden">
+        <div class="absolute -left-8 -top-8 w-24 h-24 rounded-full bg-[#9CC4A0]/15"></div>
+        <div class="relative">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#7FA886] to-[#4F7A5B] flex items-center justify-center shadow-lg shadow-[#4F7A5B]/20">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v3m0 12v3M5.6 5.6l2.1 2.1m8.6 8.6l2.1 2.1M3 12h3m12 0h3M5.6 18.4l2.1-2.1m8.6-8.6l2.1-2.1"/><circle cx="12" cy="12" r="3.2"/></svg>
+          </div>
+          <h4 class="font-kufi text-[16px] text-[#5A3E28] dark:text-[#EBDBBC] mt-3">الأذكار الشاملة</h4>
+          <p class="text-[11.5px] text-clay/80 dark:text-stone-400 mt-1 leading-relaxed">الصباح والمساء والنوم والاستيقاظ والصلاة</p>
+        </div>
+      </button>
+
+      <button data-go="saved" class="nav-card press text-right rounded-[26px] p-5 bg-white dark:bg-night2 ring-soft card-shadow relative overflow-hidden">
+        <div class="absolute -left-8 -top-8 w-24 h-24 rounded-full bg-[#D98888]/15"></div>
+        <div class="relative">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#D79A9A] to-[#B36A6A] flex items-center justify-center shadow-lg shadow-[#B36A6A]/20">
+            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 20.8s-8-5-8-10.4A4.5 4.5 0 0112 8a4.5 4.5 0 018 2.4c0 5.4-8 10.4-8 10.4z"/></svg>
+          </div>
+          <h4 class="font-kufi text-[16px] text-[#5A3E28] dark:text-[#EBDBBC] mt-3">المحفوظات</h4>
+          <p class="text-[11.5px] text-clay/80 dark:text-stone-400 mt-1 leading-relaxed">الأحاديث التي حفظتها بالقلب المفضّل</p>
+        </div>
+      </button>
+
+      <div class="col-span-2 rounded-[26px] p-5 bg-gradient-to-l from-[#2C3A52] to-[#1B2537] dark:from-[#1A2439] dark:to-[#101827] card-shadow relative overflow-hidden">
+        <div class="absolute left-4 top-4 w-16 h-16 rounded-full bg-gold/15 blur-xl"></div>
+        <p class="relative font-amiri text-[17px] leading-loose text-[#F3E7CE]">«بلِّغوا عنّي ولو آية»</p>
+        <p class="relative text-[11.5px] text-gold/80 mt-2">رواه البخاري — شارك ما تعلمته اليوم مع غيرك</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- ====== VIEW: LIBRARY ====== -->
+  <section id="view-library" class="view px-5 pt-5">
+    <div class="sticky top-[68px] z-30 -mx-5 px-5 pb-3 pt-1 bg-cream/90 dark:bg-navy/90 backdrop-blur-xl">
+      <div class="relative">
+        <svg class="w-5 h-5 absolute right-4 top-1/2 -translate-y-1/2 text-clay/60 dark:text-stone-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M20 20l-3.2-3.2"/></svg>
+        <input id="searchInput" type="search" placeholder="ابحث في الأحاديث والشروح…" class="w-full rounded-2xl bg-white dark:bg-night2 ring-soft py-3.5 pr-12 pl-4 text-[14px] outline-none focus:ring-2 focus:ring-clay/40 dark:text-stone-200 placeholder:text-clay/50 dark:placeholder:text-stone-500 card-shadow">
+      </div>
+      <div class="flex gap-2 mt-3 overflow-x-auto pb-1">
+        <button data-filter="الكل" class="chip shrink-0 px-4 py-1.5 rounded-full text-[12px] font-bold">الكل</button>
+        <button data-filter="الإيمان" class="chip shrink-0 px-4 py-1.5 rounded-full text-[12px] font-bold">الإيمان</button>
+        <button data-filter="الأخلاق" class="chip shrink-0 px-4 py-1.5 rounded-full text-[12px] font-bold">الأخلاق</button>
+        <button data-filter="العبادات" class="chip shrink-0 px-4 py-1.5 rounded-full text-[12px] font-bold">العبادات</button>
+        <button data-filter="الذكر" class="chip shrink-0 px-4 py-1.5 rounded-full text-[12px] font-bold">الذكر والدعاء</button>
+        <button data-filter="المعاملات" class="chip shrink-0 px-4 py-1.5 rounded-full text-[12px] font-bold">المعاملات</button>
+      </div>
+    </div>
+    <p id="resultCount" class="text-[11.5px] text-clay/70 dark:text-stone-500 mb-3"></p>
+    <div id="hadithList" class="space-y-4"></div>
+  </section>
+
+  <!-- ====== VIEW: ADHKAR ====== -->
+  <section id="view-adhkar" class="view px-5 pt-5">
+    <div id="adhkarCats" class="grid grid-cols-2 gap-4"></div>
+    <div id="adhkarDetail" class="hidden">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h3 id="adhkarTitle" class="font-kufi text-xl text-[#5A3E28] dark:text-[#EBDBBC]"></h3>
+          <p id="adhkarProgressTxt" class="text-[11.5px] text-clay/70 dark:text-stone-400 mt-0.5"></p>
+        </div>
+        <button id="resetAdhkar" class="text-[11.5px] font-bold px-3.5 py-2 rounded-xl bg-white dark:bg-night2 ring-soft text-clay dark:text-gold press">إعادة التعيين</button>
+      </div>
+      <div class="h-2 rounded-full bg-sand2 dark:bg-night2 overflow-hidden mb-5">
+        <div id="adhkarBar" class="h-full w-0 bg-gradient-to-l from-[#7FA886] to-[#4F7A5B] rounded-full transition-all duration-500"></div>
+      </div>
+      <div id="adhkarList" class="space-y-4"></div>
+    </div>
+  </section>
+
+  <!-- ====== VIEW: SAVED ====== -->
+  <section id="view-saved" class="view px-5 pt-5">
+    <div id="savedList" class="space-y-4"></div>
+  </section>
+
+  <!-- Bottom Nav -->
+  <nav class="fixed bottom-0 inset-x-0 z-40">
+    <div class="max-w-xl mx-auto px-4 pb-4">
+      <div class="rounded-[26px] bg-white/95 dark:bg-night2/95 backdrop-blur-xl ring-soft card-shadow grid grid-cols-4 p-1.5">
+        <button data-go="home" class="tab flex flex-col items-center gap-0.5 py-2 rounded-[20px] text-[10.5px] font-bold">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10.5L12 3l9 7.5V20a1.5 1.5 0 01-1.5 1.5h-4V15h-7v6.5h-4A1.5 1.5 0 013 20v-9.5z"/></svg>
+          الرئيسية
+        </button>
+        <button data-go="library" class="tab flex flex-col items-center gap-0.5 py-2 rounded-[20px] text-[10.5px] font-bold">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 7C10 5 7 4.5 4 5v13c3-.5 6 0 8 2 2-2 5-2.5 8-2V5c-3-.5-6 0-8 2zm0 0v13"/></svg>
+          المكتبة
+        </button>
+        <button data-go="adhkar" class="tab flex flex-col items-center gap-0.5 py-2 rounded-[20px] text-[10.5px] font-bold">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path stroke-linecap="round" d="M12 3v3m0 12v3M5.6 5.6l2.1 2.1m8.6 8.6l2.1 2.1M3 12h3m12 0h3M5.6 18.4l2.1-2.1m8.6-8.6l2.1-2.1"/></svg>
+          الأذكار
+        </button>
+        <button data-go="saved" class="tab flex flex-col items-center gap-0.5 py-2 rounded-[20px] text-[10.5px] font-bold">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 20.5s-7.5-4.7-7.5-9.8A4.2 4.2 0 0112 8.4a4.2 4.2 0 017.5 2.3c0 5.1-7.5 9.8-7.5 9.8z"/></svg>
+          محفوظاتي
+        </button>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<!-- ============ MODAL ============ -->
+<div id="modal" class="fixed inset-0 z-[90] hidden">
+  <div id="modalBack" class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+  <div class="absolute inset-x-0 bottom-0 max-w-xl mx-auto">
+    <div id="modalCard" class="modal-in bg-cream dark:bg-night rounded-t-[32px] max-h-[86vh] overflow-y-auto">
+      <div class="sticky top-0 bg-cream dark:bg-night pt-3 pb-2 flex justify-center">
+        <div class="w-12 h-1.5 rounded-full bg-sand2 dark:bg-white/10"></div>
+      </div>
+      <div class="px-6 pb-10">
+        <div class="flex items-center gap-2.5 mb-4">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-clay to-clay-dark flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 16v-5M12 8h.01"/></svg>
+          </div>
+          <h3 id="modalTitle" class="font-kufi text-xl text-[#5A3E28] dark:text-[#EBDBBC]">شرح الحديث</h3>
+        </div>
+        <div class="rounded-3xl bg-white dark:bg-night2 ring-soft p-5 card-shadow">
+          <p id="modalHadith" class="font-amiri text-[19px] leading-[2.1] text-ink dark:text-stone-100"></p>
+          <p id="modalNarr" class="mt-3 text-[12px] text-clay dark:text-gold/80 font-medium"></p>
+        </div>
+        <div class="mt-4 rounded-3xl bg-gradient-to-br from-[#F6F1E6] to-[#EFE4D2] dark:from-[#18223A] dark:to-[#131B2C] ring-soft p-5">
+          <h4 class="font-kufi text-[15px] text-clay-dark dark:text-gold mb-2">الشرح المبسّط</h4>
+          <p id="modalExp" class="text-[14.5px] leading-[2] text-ink/90 dark:text-stone-300"></p>
+        </div>
+        <div id="modalLessonWrap" class="mt-4 rounded-3xl bg-white dark:bg-night2 ring-soft p-5">
+          <h4 class="font-kufi text-[15px] text-clay-dark dark:text-gold mb-2">الفائدة العملية</h4>
+          <p id="modalLesson" class="text-[14.5px] leading-[2] text-ink/90 dark:text-stone-300"></p>
+        </div>
+        <button id="modalClose" class="w-full mt-5 py-3.5 rounded-2xl bg-gradient-to-l from-clay to-clay-dark text-white font-bold press shadow-lg shadow-clay/25">إغلاق</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="fixed z-[120] left-1/2 -translate-x-1/2 bottom-28 px-5 py-3 rounded-2xl bg-[#2F3E2F] text-white text-[13px] font-bold shadow-2xl opacity-0 translate-y-4 pointer-events-none transition-all duration-300"></div>
+
+<script>
+/* ============================================================
+   كنز السنة — Treasure of the Sunnah
+   ============================================================ */
+
+/* ---------- 25 Authentic Hadiths (Bukhari & Muslim only) ---------- */
+const HADITHS = [
+ {id:1,cat:"الإيمان",title:"إنما الأعمال بالنيات",
+  text:"«إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى، فَمَنْ كَانَتْ هِجْرَتُهُ إِلَى اللهِ وَرَسُولِهِ فَهِجْرَتُهُ إِلَى اللهِ وَرَسُولِهِ، وَمَنْ كَانَتْ هِجْرَتُهُ لِدُنْيَا يُصِيبُهَا أَوِ امْرَأَةٍ يَنْكِحُهَا فَهِجْرَتُهُ إِلَى مَا هَاجَرَ إِلَيْهِ»",
+  narr:"رواه البخاري (١) ومسلم (١٩٠٧) عن عمر بن الخطاب رضي الله عنه",
+  exp:"يخبرنا النبي ﷺ أن قيمة كل عمل تُقاس بالنية التي في القلب، فالعمل الظاهر واحد لكن أجره يختلف باختلاف المقصد. فمن هاجر أو عمل خالصاً لله نال الأجر الكامل، ومن قصد بعمله دنيا أو منفعة فليس له إلا ما قصد.",
+  lesson:"راجع نيتك قبل كل عمل: الدراسة، العمل، الإنفاق على الأهل، كلها تتحول إلى عبادة إذا نويت بها وجه الله."},
+
+ {id:2,cat:"الأخلاق",title:"فليقل خيراً أو ليصمت",
+  text:"«مَنْ كَانَ يُؤْمِنُ بِاللهِ وَالْيَوْمِ الآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ، وَمَنْ كَانَ يُؤْمِنُ بِاللهِ وَالْيَوْمِ الآخِرِ فَلْيُكْرِمْ جَارَهُ، وَمَنْ كَانَ يُؤْمِنُ بِاللهِ وَالْيَوْمِ الآخِرِ فَلْيُكْرِمْ ضَيْفَهُ»",
+  narr:"رواه البخاري (٦٠١٨) ومسلم (٤٧) عن أبي هريرة رضي الله عنه",
+  exp:"ربط النبي ﷺ كمال الإيمان بثلاث خصال عملية: ضبط اللسان فلا يتكلم إلا بخير، وإكرام الجار بكف الأذى وبذل المعروف، وإكرام الضيف بحسن الاستقبال. فالإيمان ليس شعاراً بل سلوك يومي مع الناس.",
+  lesson:"قبل أن تتكلم اسأل نفسك: هل في كلامي خير؟ فإن لم يكن فالصمت أسلم لك وأرفع لدرجتك."},
+
+ {id:3,cat:"الإيمان",title:"حب الخير للآخرين",
+  text:"«لَا يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لِأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ»",
+  narr:"رواه البخاري (١٣) ومسلم (٤٥) عن أنس بن مالك رضي الله عنه",
+  exp:"نفيٌ لكمال الإيمان عمّن لا يحب لإخوانه المسلمين من الخير مثل ما يحبه لنفسه. والمقصود أن يفرح بنعمة غيره كما يفرح بنعمته، ويكره له الضرر كما يكرهه لنفسه، وهذا علاج جذري للحسد والأنانية.",
+  lesson:"إذا رأيت نعمة عند غيرك فادعُ له بالبركة، واجعل قلبك سليماً تَسلم من أكبر أمراض النفوس."},
+
+ {id:4,cat:"الأخلاق",title:"المسلم من سلم المسلمون",
+  text:"«الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ، وَالْمُهَاجِرُ مَنْ هَجَرَ مَا نَهَى اللهُ عَنْهُ»",
+  narr:"رواه البخاري (١٠) ومسلم (٤٠) عن عبد الله بن عمرو رضي الله عنهما",
+  exp:"الإسلام الحقيقي يظهر في سلامة الناس من أذى المسلم؛ بلسانه في السب والغيبة والنميمة، وبيده في الضرب والظلم وأخذ الحقوق. والهجرة الكاملة هي هجر المعاصي لا مجرد الانتقال من بلد إلى بلد.",
+  lesson:"اجعل شعارك اليوم: لن أؤذي أحداً بكلمة ولا بفعل، فهذا أول برهان على صدق إسلامك."},
+
+ {id:5,cat:"العبادات",title:"أركان الإسلام الخمسة",
+  text:"«بُنِيَ الإِسْلَامُ عَلَى خَمْسٍ: شَهَادَةِ أَنْ لَا إِلَهَ إِلَّا اللهُ وَأَنَّ مُحَمَّدًا رَسُولُ اللهِ، وَإِقَامِ الصَّلَاةِ، وَإِيتَاءِ الزَّكَاةِ، وَحَجِّ الْبَيْتِ، وَصَوْمِ رَمَضَانَ»",
+  narr:"رواه البخاري (٨) ومسلم (١٦) عن عبد الله بن عمر رضي الله عنهما",
+  exp:"شبّه النبي ﷺ الإسلام ببنيان قائم على خمس دعائم: التوحيد وهو الأساس، ثم الصلاة عمود الدين، ثم الزكاة طهرة المال، ثم الحج لمن استطاع، ثم صوم رمضان. ومن أخلّ بشيء منها اختلّ بنيانه بقدر ما ترك.",
+  lesson:"افحص أركانك الخمسة: هل صلاتك في وقتها؟ هل زكاة مالك مؤدّاة؟ ثبّت أساسك قبل النوافل."},
+
+ {id:6,cat:"المعاملات",title:"الدين النصيحة",
+  text:"«الدِّينُ النَّصِيحَةُ» قُلْنَا: لِمَنْ؟ قَالَ: «لِلَّهِ، وَلِكِتَابِهِ، وَلِرَسُولِهِ، وَلِأَئِمَّةِ الْمُسْلِمِينَ وَعَامَّتِهِمْ»",
+  narr:"رواه مسلم (٥٥) عن تميم الداري رضي الله عنه",
+  exp:"النصيحة هنا بمعنى الإخلاص وإرادة الخير: فالنصيحة لله بتوحيده وطاعته، ولكتابه بتلاوته وتدبره والعمل به، ولرسوله ﷺ باتباع سنته، ولولاة الأمر بالدعاء لهم وبذل النصح بالحكمة، ولعامة المسلمين بإرشادهم وكفّ الأذى عنهم.",
+  lesson:"انصح بلطف وفي السر، فالنصيحة أمام الناس فضيحة، وفي الخفاء رحمة وهداية."},
+
+ {id:7,cat:"الأخلاق",title:"الدال على الخير",
+  text:"«مَنْ دَلَّ عَلَى خَيْرٍ فَلَهُ مِثْلُ أَجْرِ فَاعِلِهِ»",
+  narr:"رواه مسلم (١٨٩٣) عن أبي مسعود الأنصاري رضي الله عنه",
+  exp:"من أرشد غيره إلى عمل صالح — بكلمة أو نشر علم أو إعانة على طاعة — كُتب له مثل أجر من عمل به من غير أن ينقص من أجر العامل شيء. وهذا باب عظيم لتكثير الحسنات بلا مشقة.",
+  lesson:"انشر حديثاً أو ذكراً نافعاً اليوم؛ كل من عمل به يكتب لك مثل أجره."},
+
+ {id:8,cat:"الذكر",title:"كلمتان حبيبتان إلى الرحمن",
+  text:"«كَلِمَتَانِ خَفِيفَتَانِ عَلَى اللِّسَانِ، ثَقِيلَتَانِ فِي الْمِيزَانِ، حَبِيبَتَانِ إِلَى الرَّحْمَنِ: سُبْحَانَ اللهِ وَبِحَمْدِهِ، سُبْحَانَ اللهِ الْعَظِيمِ»",
+  narr:"رواه البخاري (٦٤٠٦) ومسلم (٢٦٩٤) عن أبي هريرة رضي الله عنه",
+  exp:"ذكرٌ يسير في النطق لكنه عظيم الوزن يوم القيامة، جمع بين تنزيه الله عن كل نقص وحمده على كماله. ولخفته على اللسان يمكن للعبد ترديده في كل حال: ماشياً وراكباً ومستلقياً.",
+  lesson:"اجعلها ورداً دائماً في طريقك وانتظارك، فهي حسنات تثقل ميزانك بلا جهد."},
+
+ {id:9,cat:"الذكر",title:"فضل الصلاة على النبي ﷺ",
+  text:"«مَنْ صَلَّى عَلَيَّ صَلَاةً وَاحِدَةً صَلَّى اللهُ عَلَيْهِ بِهَا عَشْرًا»",
+  narr:"رواه مسلم (٤٠٨) عن أبي هريرة رضي الله عنه",
+  exp:"من صلى على النبي ﷺ مرة واحدة أثنى الله عليه في الملأ الأعلى عشر مرات ورحمه. وهي سبب لرفع الدرجات ومحو الخطايا وقضاء الحوائج، وأعظم ما تكون يوم الجمعة.",
+  lesson:"خصص لنفسك عدداً يومياً من الصلاة على النبي ﷺ ولو مائة مرة؛ فهو دعاء مستجاب بيقين."},
+
+ {id:10,cat:"العبادات",title:"الطهور شطر الإيمان",
+  text:"«الطُّهُورُ شَطْرُ الإِيمَانِ، وَالْحَمْدُ لِلَّهِ تَمْلَأُ الْمِيزَانَ، وَسُبْحَانَ اللهِ وَالْحَمْدُ لِلَّهِ تَمْلَآَنِ — أَوْ تَمْلَأُ — مَا بَيْنَ السَّمَاوَاتِ وَالأَرْضِ، وَالصَّلَاةُ نُورٌ، وَالصَّدَقَةُ بُرْهَانٌ، وَالصَّبْرُ ضِيَاءٌ، وَالْقُرْآنُ حُجَّةٌ لَكَ أَوْ عَلَيْكَ»",
+  narr:"رواه مسلم (٢٢٣) عن أبي مالك الأشعري رضي الله عنه",
+  exp:"حديث جامع يبين قيمة الأعمال: الطهارة نصف الإيمان لأنها تطهير الظاهر كما أن الإيمان تطهير الباطن، والحمد يملأ ميزان الحسنات، والصلاة نور في القلب والوجه والقبر، والصدقة دليل على صدق إيمان صاحبها، والصبر ضياء لا يُنال إلا بمشقة، والقرآن إما شاهد لك إن عملت به أو عليك إن هجرته.",
+  lesson:"احرص على الوضوء دائماً على طهارة، واجعل للقرآن نصيباً يومياً ليكون حجة لك."},
+
+ {id:11,cat:"الأخلاق",title:"لا تحقرن من المعروف شيئاً",
+  text:"«لَا تَحْقِرَنَّ مِنَ الْمَعْرُوفِ شَيْئًا، وَلَوْ أَنْ تَلْقَى أَخَاكَ بِوَجْهٍ طَلْقٍ»",
+  narr:"رواه مسلم (٢٦٢٦) عن أبي ذر الغفاري رضي الله عنه",
+  exp:"ينهى النبي ﷺ عن استصغار أي عمل خير مهما بدا يسيراً، فحتى لقاء أخيك بوجه منبسط مبتسم هو معروف تؤجر عليه. فربما كانت الكلمة الطيبة أو الابتسامة سبب نجاة صاحبها.",
+  lesson:"ابتسم في وجه من تلقاه اليوم، واعلم أن أصغر معروف قد يكون أثقل أعمالك في الميزان."},
+
+ {id:12,cat:"العبادات",title:"من بنى لله مسجداً",
+  text:"«مَنْ بَنَى مَسْجِدًا لِلَّهِ، بَنَى اللهُ لَهُ فِي الْجَنَّةِ مِثْلَهُ»",
+  narr:"رواه البخاري (٤٥٠) ومسلم (٥٣٣) عن عثمان بن عفان رضي الله عنه",
+  exp:"الجزاء من جنس العمل؛ فمن أنفق ماله في بناء بيت لعبادة الله بنى الله له بيتاً في الجنة أعظم وأبقى. ويدخل في ذلك المشاركة في البناء والإصلاح والعناية بالمساجد.",
+  lesson:"شارك ولو بقليل في بناء مسجد أو صيانته، فهي صدقة جارية يمتد أجرها بعد موتك."},
+
+ {id:13,cat:"الذكر",title:"سبحان الله وبحمده مائة مرة",
+  text:"«مَنْ قَالَ: سُبْحَانَ اللهِ وَبِحَمْدِهِ، فِي يَوْمٍ مِائَةَ مَرَّةٍ، حُطَّتْ خَطَايَاهُ وَإِنْ كَانَتْ مِثْلَ زَبَدِ الْبَحْرِ»",
+  narr:"رواه البخاري (٦٤٠٥) ومسلم (٢٦٩١) عن أبي هريرة رضي الله عنه",
+  exp:"وعدٌ نبوي بمغفرة الذنوب الصغائر لمن داوم على هذا الذكر مائة مرة في اليوم، ومثّل كثرتها بزبد البحر مبالغة في سعة رحمة الله. وهو ذكر لا يستغرق سوى دقائق معدودة.",
+  lesson:"وزّع المائة على يومك: ثلاثون بعد الفجر، وثلاثون في الطريق، والباقي قبل النوم."},
+
+ {id:14,cat:"المعاملات",title:"الساعي على الأرملة والمسكين",
+  text:"«السَّاعِي عَلَى الأَرْمَلَةِ وَالْمِسْكِينِ كَالْمُجَاهِدِ فِي سَبِيلِ اللهِ — أَوْ كَالَّذِي يَصُومُ النَّهَارَ وَيَقُومُ اللَّيْلَ»",
+  narr:"رواه البخاري (٥٣٥٣) ومسلم (٢٩٨٢) عن أبي هريرة رضي الله عنه",
+  exp:"من بذل جهده في الإنفاق على الأرامل والمساكين وقضاء حوائجهم نال أجراً يعدل أجر المجاهد المرابط وأجر القائم الصائم؛ لأن نفع عمله يتعدى إلى غيره.",
+  lesson:"ابحث عن أسرة محتاجة قريبة منك وتكفّل بجزء من حاجتها ولو شهرياً."},
+
+ {id:15,cat:"الأخلاق",title:"الكبر بطر الحق وغمط الناس",
+  text:"«لَا يَدْخُلُ الْجَنَّةَ مَنْ كَانَ فِي قَلْبِهِ مِثْقَالُ ذَرَّةٍ مِنْ كِبْرٍ». قَالَ رَجُلٌ: إِنَّ الرَّجُلَ يُحِبُّ أَنْ يَكُونَ ثَوْبُهُ حَسَنًا وَنَعْلُهُ حَسَنَةً. قَالَ: «إِنَّ اللهَ جَمِيلٌ يُحِبُّ الْجَمَالَ، الْكِبْرُ بَطَرُ الْحَقِّ وَغَمْطُ النَّاسِ»",
+  narr:"رواه مسلم (٩١) عن عبد الله بن مسعود رضي الله عنه",
+  exp:"بيّن النبي ﷺ أن التجمل المباح ليس كبراً، وإنما الكبر حقيقته شيئان: رد الحق وعدم قبوله بعد ظهوره، واحتقار الناس وازدراؤهم. وهذا الخلق يحجب صاحبه عن دخول الجنة ابتداءً.",
+  lesson:"درّب نفسك على قول: «كلامك صحيح وأنا أخطأت»، فهي أقوى علاج للكبر."},
+
+ {id:16,cat:"المعاملات",title:"من غشنا فليس منا",
+  text:"مَرَّ رَسُولُ اللهِ ﷺ عَلَى صُبْرَةِ طَعَامٍ، فَأَدْخَلَ يَدَهُ فِيهَا فَنَالَتْ أَصَابِعُهُ بَلَلًا، فَقَالَ: «مَا هَذَا يَا صَاحِبَ الطَّعَامِ؟» قَالَ: أَصَابَتْهُ السَّمَاءُ يَا رَسُولَ اللهِ. قَالَ: «أَفَلَا جَعَلْتَهُ فَوْقَ الطَّعَامِ كَيْ يَرَاهُ النَّاسُ؟ مَنْ غَشَّ فَلَيْسَ مِنِّي»",
+  narr:"رواه مسلم (١٠٢) عن أبي هريرة رضي الله عنه",
+  exp:"تبرأ النبي ﷺ من كل غاشّ يخفي عيب سلعته عن المشتري. والغش لا يختص بالبيع بل يشمل العمل والدراسة والنصيحة وكل معاملة يُخفى فيها الحق.",
+  lesson:"أظهر عيب ما تبيعه قبل أن يسأل المشتري؛ البركة في الصدق لا في الربح السريع."},
+
+ {id:17,cat:"العبادات",title:"خيركم من تعلم القرآن",
+  text:"«خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ»",
+  narr:"رواه البخاري (٥٠٢٧) عن عثمان بن عفان رضي الله عنه",
+  exp:"أعلى مراتب الخير في هذه الأمة لمن جمع بين تعلم كتاب الله والعمل به وتعليمه لغيره؛ لأن شرف العلم من شرف المعلوم، والقرآن كلام الله.",
+  lesson:"علّم ابنك أو صديقك آية واحدة اليوم بتصحيح تلاوتها، فتدخل في هذه البشارة."},
+
+ {id:18,cat:"الإيمان",title:"المؤمن القوي خير",
+  text:"«الْمُؤْمِنُ الْقَوِيُّ خَيْرٌ وَأَحَبُّ إِلَى اللهِ مِنَ الْمُؤْمِنِ الضَّعِيفِ، وَفِي كُلٍّ خَيْرٌ، احْرِصْ عَلَى مَا يَنْفَعُكَ وَاسْتَعِنْ بِاللهِ وَلَا تَعْجَزْ»",
+  narr:"رواه مسلم (٢٦٦٤) عن أبي هريرة رضي الله عنه",
+  exp:"القوة هنا قوة الإيمان والعزيمة والبدن في طاعة الله. وأرشد النبي ﷺ إلى منهج النجاح: الحرص على النافع، والاستعانة بالله لا بالنفس، وترك العجز والكسل والتحسر على الماضي.",
+  lesson:"اكتب هدفاً نافعاً واحداً، وابدأ فيه اليوم مستعيناً بالله دون تسويف."},
+
+ {id:19,cat:"الإيمان",title:"الله ينظر إلى القلوب",
+  text:"«إِنَّ اللهَ لَا يَنْظُرُ إِلَى صُوَرِكُمْ وَأَمْوَالِكُمْ، وَلَكِنْ يَنْظُرُ إِلَى قُلُوبِكُمْ وَأَعْمَالِكُمْ»",
+  narr:"رواه مسلم (٢٥٦٤) عن أبي هريرة رضي الله عنه",
+  exp:"ميزان التفاضل عند الله ليس الجمال ولا المال ولا المناصب، بل صلاح القلب وصدق العمل. فقد يكون العبد رثّ الثياب وهو عند الله أعظم من ملوك الأرض.",
+  lesson:"اشتغل بإصلاح قلبك من الحسد والرياء أكثر من اشتغالك بمظهرك أمام الناس."},
+
+ {id:20,cat:"العبادات",title:"الصلوات الخمس كفارات",
+  text:"«الصَّلَوَاتُ الْخَمْسُ، وَالْجُمُعَةُ إِلَى الْجُمُعَةِ، وَرَمَضَانُ إِلَى رَمَضَانَ، مُكَفِّرَاتٌ مَا بَيْنَهُنَّ إِذَا اجْتُنِبَتِ الْكَبَائِرُ»",
+  narr:"رواه مسلم (٢٣٣) عن أبي هريرة رضي الله عنه",
+  exp:"جعل الله هذه العبادات مطهّرة لما يقع بين أوقاتها من الذنوب الصغائر، بشرط اجتناب كبائر الذنوب التي لا تكفّرها إلا التوبة النصوح.",
+  lesson:"حافظ على الصلوات الخمس في وقتها، واجتنب الكبائر، تجد نفسك كل يوم أنظف صحيفة."},
+
+ {id:21,cat:"الأخلاق",title:"المؤمن للمؤمن كالبنيان",
+  text:"«الْمُؤْمِنُ لِلْمُؤْمِنِ كَالْبُنْيَانِ يَشُدُّ بَعْضُهُ بَعْضًا» وَشَبَّكَ بَيْنَ أَصَابِعِهِ",
+  narr:"رواه البخاري (٤٨١) ومسلم (٢٥٨٥) عن أبي موسى الأشعري رضي الله عنه",
+  exp:"تشبيه نبوي بديع للمجتمع المسلم ببنيان متماسك، كل لبنة تقوّي الأخرى. فالمسلم يسند أخاه بماله وجاهه ودعائه، وإذا تخلّى بعضهم عن بعض انهار البناء.",
+  lesson:"اتصل اليوم بأخ لك في ضيق وقدّم له سنداً عملياً لا مجرد كلام."},
+
+ {id:22,cat:"الأخلاق",title:"مثل المؤمنين في توادهم",
+  text:"«مَثَلُ الْمُؤْمِنِينَ فِي تَوَادِّهِمْ وَتَرَاحُمِهِمْ وَتَعَاطُفِهِمْ مَثَلُ الْجَسَدِ، إِذَا اشْتَكَى مِنْهُ عُضْوٌ تَدَاعَى لَهُ سَائِرُ الْجَسَدِ بِالسَّهَرِ وَالْحُمَّى»",
+  narr:"رواه البخاري (٦٠١١) ومسلم (٢٥٨٦) عن النعمان بن بشير رضي الله عنهما",
+  exp:"المؤمنون كالجسد الواحد في المحبة والرحمة والتعاطف، فإذا أصاب أحدهم ألم تألم له الباقون وسعوا في تفريج كربه. وهذا أرقى صور الوحدة الشعورية.",
+  lesson:"اجعل لك نصيباً يومياً من الدعاء لإخوانك المتألمين في كل مكان."},
+
+ {id:23,cat:"العبادات",title:"من سلك طريقاً يلتمس علماً",
+  text:"«مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا، سَهَّلَ اللهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ»",
+  narr:"رواه مسلم (٢٦٩٩) عن أبي هريرة رضي الله عنه",
+  exp:"كل خطوة تُبذل في طلب العلم الشرعي — حضوراً أو قراءة أو سماعاً — يجعلها الله سبباً لتيسير طريق الجنة في الدنيا بالعمل الصالح وفي الآخرة بتجاوز العقبات.",
+  lesson:"خصص عشر دقائق يومياً لقراءة حديث مع شرحه؛ الاستمرار القليل خير من الكثير المنقطع."},
+
+ {id:24,cat:"العبادات",title:"أحب الأعمال أدومها",
+  text:"«أَحَبُّ الأَعْمَالِ إِلَى اللهِ أَدْوَمُهَا وَإِنْ قَلَّ»",
+  narr:"رواه البخاري (٦٤٦٤) ومسلم (٧٨٣) عن عائشة رضي الله عنها",
+  exp:"الله يحب من العمل ما استمر عليه صاحبه ولو كان يسيراً، لأن المداومة دليل صدق العزيمة وثبات القلب، والعمل الكثير المنقطع لا يعدل القليل الدائم.",
+  lesson:"اختر ورداً صغيراً ثابتاً — صفحة قرآن أو ركعتين ضحى — ولا تتركه أبداً."},
+
+ {id:25,cat:"المعاملات",title:"الأعمال التي لا تنقطع",
+  text:"«إِذَا مَاتَ الإِنْسَانُ انْقَطَعَ عَنْهُ عَمَلُهُ إِلَّا مِنْ ثَلَاثَةٍ: إِلَّا مِنْ صَدَقَةٍ جَارِيَةٍ، أَوْ عِلْمٍ يُنْتَفَعُ بِهِ، أَوْ وَلَدٍ صَالِحٍ يَدْعُو لَهُ»",
+  narr:"رواه مسلم (١٦٣١) عن أبي هريرة رضي الله عنه",
+  exp:"بعد الموت يتوقف عمل العبد إلا ثلاثة أبواب يستمر أجرها: صدقة باقية ينتفع بها الناس كالبئر والمسجد، وعلم نافع علّمه أو كتبه، وولد صالح رباه على الخير فدعا له.",
+  lesson:"ابدأ اليوم بواحدة من الثلاث: تبرع جارٍ، أو نشر علم، أو جلسة تربية مع أبنائك."}
+];
+
+/* ---------- Full Adhkar ---------- */
+const AYAT_KURSI = "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ، لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ، لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ، مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ، يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ، وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ، وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ، وَلَا يَئُودُهُ حِفْظُهُمَا، وَهُوَ الْعَلِيُّ الْعَظِيمُ";
+const MUAWWIDHAT = "قُلْ هُوَ اللَّهُ أَحَدٌ، اللَّهُ الصَّمَدُ، لَمْ يَلِدْ وَلَمْ يُولَدْ، وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ.\n\nقُلْ أَعُوذُ بِرَبِّ الْفَلَقِ، مِنْ شَرِّ مَا خَلَقَ، وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ، وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ، وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ.\n\nقُلْ أَعُوذُ بِرَبِّ النَّاسِ، مَلِكِ النَّاسِ، إِلَٰهِ النَّاسِ، مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ، الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ، مِنَ الْجِنَّةِ وَالنَّاسِ";
+const SAYYID_ISTIGHFAR = "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَٰهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي، فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ";
+
+const ADHKAR = [
+ {id:"morning",title:"أذكار الصباح",sub:"من طلوع الفجر إلى ارتفاع الشمس",icon:"🌅",color:"from-[#F0C27B] to-[#C79450]",
+  items:[
+   {t:AYAT_KURSI,c:1,n:"آية الكرسي — من قالها حين يصبح أُجير من الجن حتى يمسي (صحيح الجامع)"},
+   {t:MUAWWIDHAT,c:3,n:"الإخلاص والمعوذتان ثلاث مرات — تكفيك من كل شيء (أبو داود والترمذي)"},
+   {t:"أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ. رَبِّ أَسْأَلُكَ خَيْرَ مَا فِي هَذَا الْيَوْمِ وَخَيْرَ مَا بَعْدَهُ، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِي هَذَا الْيَوْمِ وَشَرِّ مَا بَعْدَهُ، رَبِّ أَعُوذُ بِكَ مِنَ الْكَسَلِ وَسُوءِ الْكِبَرِ، رَبِّ أَعُوذُ بِكَ مِنْ عَذَابٍ فِي النَّارِ وَعَذَابٍ فِي الْقَبْرِ",c:1,n:"رواه مسلم"},
+   {t:"اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ",c:1,n:"رواه الترمذي وصححه الألباني"},
+   {t:SAYYID_ISTIGHFAR,c:1,n:"سيد الاستغفار — من قالها موقناً بها حين يصبح فمات دخل الجنة (رواه البخاري)"},
+   {t:"اللَّهُمَّ إِنِّي أَصْبَحْتُ أُشْهِدُكَ، وَأُشْهِدُ حَمَلَةَ عَرْشِكَ، وَمَلَائِكَتَكَ، وَجَمِيعَ خَلْقِكَ، أَنَّكَ أَنْتَ اللَّهُ لَا إِلَٰهَ إِلَّا أَنْتَ وَحْدَكَ لَا شَرِيكَ لَكَ، وَأَنَّ مُحَمَّدًا عَبْدُكَ وَرَسُولُكَ",c:4,n:"من قالها أربع مرات أعتقه الله من النار (أبو داود)"},
+   {t:"اللَّهُمَّ مَا أَصْبَحَ بِي مِنْ نِعْمَةٍ أَوْ بِأَحَدٍ مِنْ خَلْقِكَ فَمِنْكَ وَحْدَكَ لَا شَرِيكَ لَكَ، فَلَكَ الْحَمْدُ وَلَكَ الشُّكْرُ",c:1,n:"من قالها فقد أدى شكر يومه (أبو داود)"},
+   {t:"اللَّهُمَّ عَافِنِي فِي بَدَنِي، اللَّهُمَّ عَافِنِي فِي سَمْعِي، اللَّهُمَّ عَافِنِي فِي بَصَرِي، لَا إِلَٰهَ إِلَّا أَنْتَ. اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْكُفْرِ وَالْفَقْرِ، وَأَعُوذُ بِكَ مِنْ عَذَابِ الْقَبْرِ، لَا إِلَٰهَ إِلَّا أَنْتَ",c:3,n:"رواه أبو داود وأحمد"},
+   {t:"حَسْبِيَ اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ، عَلَيْهِ تَوَكَّلْتُ، وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ",c:7,n:"من قالها سبعاً كفاه الله ما أهمه (أبو داود)"},
+   {t:"بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ، وَهُوَ السَّمِيعُ الْعَلِيمُ",c:3,n:"لم يضره شيء (أبو داود والترمذي)"},
+   {t:"رَضِيتُ بِاللَّهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ نَبِيًّا",c:3,n:"كان حقاً على الله أن يرضيه يوم القيامة (أحمد والترمذي)"},
+   {t:"يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ، أَصْلِحْ لِي شَأْنِي كُلَّهُ، وَلَا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ",c:1,n:"رواه الحاكم وحسنه الألباني"},
+   {t:"أَصْبَحْنَا عَلَى فِطْرَةِ الْإِسْلَامِ، وَعَلَى كَلِمَةِ الْإِخْلَاصِ، وَعَلَى دِينِ نَبِيِّنَا مُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، وَعَلَى مِلَّةِ أَبِينَا إِبْرَاهِيمَ حَنِيفًا مُسْلِمًا وَمَا كَانَ مِنَ الْمُشْرِكِينَ",c:1,n:"رواه أحمد"},
+   {t:"سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",c:100,n:"من قالها مائة مرة حُطت خطاياه وإن كانت مثل زبد البحر (متفق عليه)"},
+   {t:"لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",c:10,n:"عدل عشر رقاب وحرز من الشيطان (متفق عليه)"},
+   {t:"سُبْحَانَ اللَّهِ وَبِحَمْدِهِ: عَدَدَ خَلْقِهِ، وَرِضَا نَفْسِهِ، وَزِنَةَ عَرْشِهِ، وَمِدَادَ كَلِمَاتِهِ",c:3,n:"رواه مسلم"},
+   {t:"اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا، وَرِزْقًا طَيِّبًا، وَعَمَلًا مُتَقَبَّلًا",c:1,n:"رواه ابن ماجه"},
+   {t:"أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ",c:100,n:"كان النبي ﷺ يستغفر في اليوم أكثر من مائة مرة (مسلم)"},
+   {t:"اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ",c:10,n:"من صلى عليّ حين يصبح عشراً وحين يمسي عشراً أدركته شفاعتي (الطبراني)"}
+  ]},
+
+ {id:"evening",title:"أذكار المساء",sub:"من بعد العصر إلى غروب الشمس",icon:"🌙",color:"from-[#7E8FB8] to-[#44557F]",
+  items:[
+   {t:AYAT_KURSI,c:1,n:"آية الكرسي — من قالها حين يمسي أُجير من الجن حتى يصبح"},
+   {t:MUAWWIDHAT,c:3,n:"الإخلاص والمعوذتان ثلاث مرات — تكفيك من كل شيء"},
+   {t:"أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ. رَبِّ أَسْأَلُكَ خَيْرَ مَا فِي هَذِهِ اللَّيْلَةِ وَخَيْرَ مَا بَعْدَهَا، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِي هَذِهِ اللَّيْلَةِ وَشَرِّ مَا بَعْدَهَا، رَبِّ أَعُوذُ بِكَ مِنَ الْكَسَلِ وَسُوءِ الْكِبَرِ، رَبِّ أَعُوذُ بِكَ مِنْ عَذَابٍ فِي النَّارِ وَعَذَابٍ فِي الْقَبْرِ",c:1,n:"رواه مسلم"},
+   {t:"اللَّهُمَّ بِكَ أَمْسَيْنَا، وَبِكَ أَصْبَحْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ الْمَصِيرُ",c:1,n:"رواه الترمذي"},
+   {t:SAYYID_ISTIGHFAR,c:1,n:"سيد الاستغفار — من قالها حين يمسي فمات دخل الجنة (البخاري)"},
+   {t:"اللَّهُمَّ إِنِّي أَمْسَيْتُ أُشْهِدُكَ، وَأُشْهِدُ حَمَلَةَ عَرْشِكَ، وَمَلَائِكَتَكَ، وَجَمِيعَ خَلْقِكَ، أَنَّكَ أَنْتَ اللَّهُ لَا إِلَٰهَ إِلَّا أَنْتَ وَحْدَكَ لَا شَرِيكَ لَكَ، وَأَنَّ مُحَمَّدًا عَبْدُكَ وَرَسُولُكَ",c:4,n:"رواه أبو داود"},
+   {t:"اللَّهُمَّ مَا أَمْسَى بِي مِنْ نِعْمَةٍ أَوْ بِأَحَدٍ مِنْ خَلْقِكَ فَمِنْكَ وَحْدَكَ لَا شَرِيكَ لَكَ، فَلَكَ الْحَمْدُ وَلَكَ الشُّكْرُ",c:1,n:"رواه أبو داود"},
+   {t:"اللَّهُمَّ عَافِنِي فِي بَدَنِي، اللَّهُمَّ عَافِنِي فِي سَمْعِي، اللَّهُمَّ عَافِنِي فِي بَصَرِي، لَا إِلَٰهَ إِلَّا أَنْتَ. اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْكُفْرِ وَالْفَقْرِ، وَأَعُوذُ بِكَ مِنْ عَذَابِ الْقَبْرِ، لَا إِلَٰهَ إِلَّا أَنْتَ",c:3,n:"رواه أبو داود"},
+   {t:"حَسْبِيَ اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ، عَلَيْهِ تَوَكَّلْتُ، وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ",c:7,n:"كفاه الله ما أهمه من أمر الدنيا والآخرة"},
+   {t:"بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ، وَهُوَ السَّمِيعُ الْعَلِيمُ",c:3,n:"لم تصبه فجأة بلاء (أبو داود والترمذي)"},
+   {t:"رَضِيتُ بِاللَّهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ نَبِيًّا",c:3,n:"رواه أحمد والترمذي"},
+   {t:"أَمْسَيْنَا عَلَى فِطْرَةِ الْإِسْلَامِ، وَعَلَى كَلِمَةِ الْإِخْلَاصِ، وَعَلَى دِينِ نَبِيِّنَا مُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، وَعَلَى مِلَّةِ أَبِينَا إِبْرَاهِيمَ حَنِيفًا مُسْلِمًا وَمَا كَانَ مِنَ الْمُشْرِكِينَ",c:1,n:"رواه أحمد"},
+   {t:"أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ",c:3,n:"من قالها حين يمسي لم تضره حمة تلك الليلة (مسلم)"},
+   {t:"سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",c:100,n:"حُطت خطاياه وإن كانت مثل زبد البحر (متفق عليه)"},
+   {t:"لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",c:10,n:"رواه البخاري ومسلم"},
+   {t:"يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ، أَصْلِحْ لِي شَأْنِي كُلَّهُ، وَلَا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ",c:1,n:"رواه الحاكم"},
+   {t:"أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ",c:100,n:"رواه مسلم"},
+   {t:"اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ",c:10,n:"أدركته شفاعة النبي ﷺ يوم القيامة"}
+  ]},
+
+ {id:"sleep",title:"أذكار النوم",sub:"تُقال عند الاضطجاع في الفراش",icon:"🛏️",color:"from-[#9D8FC0] to-[#5C4E88]",
+  items:[
+   {t:"تجمع كفيك ثم تنفث فيهما وتقرأ: قُلْ هُوَ اللَّهُ أَحَدٌ... وَقُلْ أَعُوذُ بِرَبِّ الْفَلَقِ... وَقُلْ أَعُوذُ بِرَبِّ النَّاسِ... ثم تمسح بهما ما استطعت من جسدك، تبدأ بهما على رأسك ووجهك وما أقبل من جسدك",c:3,n:"رواه البخاري ومسلم عن عائشة رضي الله عنها"},
+   {t:AYAT_KURSI,c:1,n:"من قرأها عند النوم لم يزل عليه من الله حافظ ولا يقربه شيطان حتى يصبح (البخاري)"},
+   {t:"آمَنَ الرَّسُولُ بِمَا أُنْزِلَ إِلَيْهِ مِنْ رَبِّهِ وَالْمُؤْمِنُونَ، كُلٌّ آمَنَ بِاللَّهِ وَمَلَائِكَتِهِ وَكُتُبِهِ وَرُسُلِهِ، لَا نُفَرِّقُ بَيْنَ أَحَدٍ مِنْ رُسُلِهِ، وَقَالُوا سَمِعْنَا وَأَطَعْنَا، غُفْرَانَكَ رَبَّنَا وَإِلَيْكَ الْمَصِيرُ. لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا، لَهَا مَا كَسَبَتْ وَعَلَيْهَا مَا اكْتَسَبَتْ، رَبَّنَا لَا تُؤَاخِذْنَا إِنْ نَسِينَا أَوْ أَخْطَأْنَا، رَبَّنَا وَلَا تَحْمِلْ عَلَيْنَا إِصْرًا كَمَا حَمَلْتَهُ عَلَى الَّذِينَ مِنْ قَبْلِنَا، رَبَّنَا وَلَا تُحَمِّلْنَا مَا لَا طَاقَةَ لَنَا بِهِ، وَاعْفُ عَنَّا وَاغْفِرْ لَنَا وَارْحَمْنَا، أَنْتَ مَوْلَانَا فَانْصُرْنَا عَلَى الْقَوْمِ الْكَافِرِينَ",c:1,n:"آخر آيتين من سورة البقرة — من قرأهما في ليلة كفتاه (متفق عليه)"},
+   {t:"بِاسْمِكَ رَبِّي وَضَعْتُ جَنْبِي، وَبِكَ أَرْفَعُهُ، إِنْ أَمْسَكْتَ نَفْسِي فَارْحَمْهَا، وَإِنْ أَرْسَلْتَهَا فَاحْفَظْهَا بِمَا تَحْفَظُ بِهِ عِبَادَكَ الصَّالِحِينَ",c:1,n:"متفق عليه"},
+   {t:"اللَّهُمَّ إِنَّكَ خَلَقْتَ نَفْسِي وَأَنْتَ تَوَفَّاهَا، لَكَ مَمَاتُهَا وَمَحْيَاهَا، إِنْ أَحْيَيْتَهَا فَاحْفَظْهَا، وَإِنْ أَمَتَّهَا فَاغْفِرْ لَهَا، اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَافِيَةَ",c:1,n:"رواه مسلم"},
+   {t:"اللَّهُمَّ قِنِي عَذَابَكَ يَوْمَ تَبْعَثُ عِبَادَكَ",c:3,n:"رواه أبو داود والترمذي"},
+   {t:"بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا",c:1,n:"رواه البخاري"},
+   {t:"سُبْحَانَ اللَّهِ (ثلاثاً وثلاثين)، وَالْحَمْدُ لِلَّهِ (ثلاثاً وثلاثين)، وَاللَّهُ أَكْبَرُ (أربعاً وثلاثين)",c:33,n:"تسبيح فاطمة رضي الله عنها — هو خير لكما من خادم (متفق عليه)"},
+   {t:"اللَّهُمَّ أَسْلَمْتُ نَفْسِي إِلَيْكَ، وَفَوَّضْتُ أَمْرِي إِلَيْكَ، وَوَجَّهْتُ وَجْهِي إِلَيْكَ، وَأَلْجَأْتُ ظَهْرِي إِلَيْكَ، رَغْبَةً وَرَهْبَةً إِلَيْكَ، لَا مَلْجَأَ وَلَا مَنْجَا مِنْكَ إِلَّا إِلَيْكَ، آمَنْتُ بِكِتَابِكَ الَّذِي أَنْزَلْتَ، وَبِنَبِيِّكَ الَّذِي أَرْسَلْتَ",c:1,n:"من قالها ثم مات من ليلته مات على الفطرة (متفق عليه)"},
+   {t:"الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنَا وَسَقَانَا، وَكَفَانَا وَآوَانَا، فَكَمْ مِمَّنْ لَا كَافِيَ لَهُ وَلَا مُؤْوِيَ",c:1,n:"رواه مسلم"}
+  ]},
+
+ {id:"wake",title:"أذكار الاستيقاظ",sub:"تُقال عند القيام من النوم",icon:"☀️",color:"from-[#8FC4A8] to-[#44836A]",
+  items:[
+   {t:"الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ",c:1,n:"رواه البخاري ومسلم"},
+   {t:"لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، سُبْحَانَ اللَّهِ، وَالْحَمْدُ لِلَّهِ، وَلَا إِلَٰهَ إِلَّا اللَّهُ، وَاللَّهُ أَكْبَرُ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ الْعَلِيِّ الْعَظِيمِ، رَبِّ اغْفِرْ لِي",c:1,n:"من قالها غُفر له، فإن دعا استُجيب له (رواه البخاري)"},
+   {t:"الْحَمْدُ لِلَّهِ الَّذِي عَافَانِي فِي جَسَدِي، وَرَدَّ عَلَيَّ رُوحِي، وَأَذِنَ لِي بِذِكْرِهِ",c:1,n:"رواه الترمذي"},
+   {t:"إِنَّ فِي خَلْقِ السَّمَاوَاتِ وَالْأَرْضِ وَاخْتِلَافِ اللَّيْلِ وَالنَّهَارِ لَآيَاتٍ لِأُولِي الْأَلْبَابِ، الَّذِينَ يَذْكُرُونَ اللَّهَ قِيَامًا وَقُعُودًا وَعَلَى جُنُوبِهِمْ وَيَتَفَكَّرُونَ فِي خَلْقِ السَّمَاوَاتِ وَالْأَرْضِ، رَبَّنَا مَا خَلَقْتَ هَذَا بَاطِلًا سُبْحَانَكَ فَقِنَا عَذَابَ النَّارِ",c:1,n:"الآيات العشر الأواخر من سورة آل عمران — كان النبي ﷺ يقرؤها عند الاستيقاظ (متفق عليه)"},
+   {t:"اللَّهُمَّ لَكَ الْحَمْدُ أَنْتَ نُورُ السَّمَاوَاتِ وَالْأَرْضِ وَمَنْ فِيهِنَّ، وَلَكَ الْحَمْدُ أَنْتَ قَيِّمُ السَّمَاوَاتِ وَالْأَرْضِ وَمَنْ فِيهِنَّ، أَنْتَ الْحَقُّ، وَوَعْدُكَ الْحَقُّ، وَقَوْلُكَ الْحَقُّ، وَلِقَاؤُكَ حَقٌّ، وَالْجَنَّةُ حَقٌّ، وَالنَّارُ حَقٌّ، اللَّهُمَّ لَكَ أَسْلَمْتُ، وَبِكَ آمَنْتُ، وَعَلَيْكَ تَوَكَّلْتُ، وَإِلَيْكَ أَنَبْتُ، وَبِكَ خَاصَمْتُ، وَإِلَيْكَ حَاكَمْتُ، فَاغْفِرْ لِي مَا قَدَّمْتُ وَمَا أَخَّرْتُ، وَمَا أَسْرَرْتُ وَمَا أَعْلَنْتُ، أَنْتَ الْمُقَدِّمُ وَأَنْتَ الْمُؤَخِّرُ، لَا إِلَٰهَ إِلَّا أَنْتَ",c:1,n:"متفق عليه"}
+  ]},
+
+ {id:"prayer",title:"أذكار بعد الصلاة",sub:"تُقال عقب كل صلاة مفروضة",icon:"🕌",color:"from-[#D7A86E] to-[#9A6B3F]",
+  items:[
+   {t:"أَسْتَغْفِرُ اللَّهَ",c:3,n:"رواه مسلم"},
+   {t:"اللَّهُمَّ أَنْتَ السَّلَامُ، وَمِنْكَ السَّلَامُ، تَبَارَكْتَ يَا ذَا الْجَلَالِ وَالْإِكْرَامِ",c:1,n:"رواه مسلم"},
+   {t:"لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، اللَّهُمَّ لَا مَانِعَ لِمَا أَعْطَيْتَ، وَلَا مُعْطِيَ لِمَا مَنَعْتَ، وَلَا يَنْفَعُ ذَا الْجَدِّ مِنْكَ الْجَدُّ",c:1,n:"متفق عليه"},
+   {t:"لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ، لَا إِلَٰهَ إِلَّا اللَّهُ، وَلَا نَعْبُدُ إِلَّا إِيَّاهُ، لَهُ النِّعْمَةُ وَلَهُ الْفَضْلُ وَلَهُ الثَّنَاءُ الْحَسَنُ، لَا إِلَٰهَ إِلَّا اللَّهُ مُخْلِصِينَ لَهُ الدِّينَ وَلَوْ كَرِهَ الْكَافِرُونَ",c:1,n:"رواه مسلم"},
+   {t:"اللَّهُمَّ أَعِنِّي عَلَى ذِكْرِكَ، وَشُكْرِكَ، وَحُسْنِ عِبَادَتِكَ",c:1,n:"رواه أبو داود والنسائي بسند صحيح"},
+   {t:"سُبْحَانَ اللَّهِ",c:33,n:"رواه مسلم"},
+   {t:"الْحَمْدُ لِلَّهِ",c:33,n:"رواه مسلم"},
+   {t:"اللَّهُ أَكْبَرُ",c:33,n:"رواه مسلم"},
+   {t:"لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",c:1,n:"تمام المائة — غُفرت خطاياه وإن كانت مثل زبد البحر (مسلم)"},
+   {t:AYAT_KURSI,c:1,n:"من قرأ آية الكرسي دبر كل صلاة مكتوبة لم يمنعه من دخول الجنة إلا أن يموت (النسائي)"},
+   {t:MUAWWIDHAT,c:1,n:"قراءة الإخلاص والمعوذتين دبر كل صلاة (أبو داود والنسائي)"},
+   {t:"اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْبُخْلِ، وَأَعُوذُ بِكَ مِنَ الْجُبْنِ، وَأَعُوذُ بِكَ مِنْ أَنْ أُرَدَّ إِلَى أَرْذَلِ الْعُمُرِ، وَأَعُوذُ بِكَ مِنْ فِتْنَةِ الدُّنْيَا وَعَذَابِ الْقَبْرِ",c:1,n:"رواه البخاري — بعد كل صلاة"}
+  ]}
+];
+
+/* ---------- State & Storage ---------- */
+const LS = {
+  theme:'ks_theme', saved:'ks_saved', adhkar:'ks_adhkar', date:'ks_date'
+};
+let saved = JSON.parse(localStorage.getItem(LS.saved) || '[]');
+let adhkarState = JSON.parse(localStorage.getItem(LS.adhkar) || '{}');
+let currentView = 'home', currentCat = null, activeFilter = 'الكل';
+
+const todayKey = new Date().toISOString().slice(0,10);
+if(localStorage.getItem(LS.date) !== todayKey){
+  adhkarState = {}; localStorage.setItem(LS.adhkar, '{}');
+  localStorage.setItem(LS.date, todayKey);
+}
+
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+
+/* ---------- Theme ---------- */
+function applyTheme(dark){
+  document.documentElement.classList.toggle('dark', dark);
+  $('#iconSun').classList.toggle('hidden', dark);
+  $('#iconMoon').classList.toggle('hidden', !dark);
+  $('#themeKnob').style.transform = dark ? 'translateX(-26px)' : 'translateX(0)';
+  document.querySelector('meta[name=theme-color]').setAttribute('content', dark ? '#0E1626' : '#FDFBF7');
+  localStorage.setItem(LS.theme, dark ? 'dark' : 'light');
+}
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+applyTheme((localStorage.getItem(LS.theme) || (prefersDark?'dark':'light')) === 'dark');
+$('#themeBtn').addEventListener('click', ()=>{
+  applyTheme(!document.documentElement.classList.contains('dark'));
+});
+
+/* ---------- Toast ---------- */
+let toastTimer;
+function toast(msg, ok=true){
+  const t = $('#toast');
+  t.textContent = msg;
+  t.style.background = ok ? '#3C5A43' : '#7A3B3B';
+  t.classList.remove('opacity-0','translate-y-4');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.add('opacity-0','translate-y-4'), 2200);
+}
+
+/* ---------- Daily Hadith ---------- */
+const dayIndex = Math.floor(new Date().setHours(0,0,0,0)/86400000) % HADITHS.length;
+const daily = HADITHS[dayIndex];
+$('#dailyText').textContent = daily.text;
+$('#dailyNarr').textContent = daily.narr;
+
+const arDate = new Intl.DateTimeFormat('ar-EG',{weekday:'long', day:'numeric', month:'long'}).format(new Date());
+$('#todayDate').textContent = arDate;
+const h = new Date().getHours();
+$('#greet').textContent = h<12 ? 'صباح الخير — طاب يومك بذكر الله' : (h<18 ? 'مساء الخير — نسأل الله لك التوفيق' : 'مساء النور — ختام يومك ذكرٌ وطمأنينة');
+
+function plainHadith(hd){ return `${hd.text}\n\n${hd.narr}\n\n— من تطبيق كنز السنة`; }
+
+$('#btnCopy').addEventListener('click', ()=>copyText(plainHadith(daily)));
+$('#btnShare').addEventListener('click', ()=>shareText(plainHadith(daily)));
+$('#btnExp').addEventListener('click', ()=>openModal(daily));
+$('#dailyFav').addEventListener('click', ()=>{ toggleSave(daily.id); refreshDailyFav(); });
+
+function refreshDailyFav(){
+  const on = saved.includes(daily.id);
+  const svg = $('#dailyFav').querySelector('svg');
+  svg.setAttribute('fill', on ? 'currentColor' : 'none');
+  svg.classList.toggle('text-[#C06A6A]', on);
+  svg.classList.toggle('text-clay', !on);
+}
+
+async function copyText(txt){
+  try{
+    if(navigator.clipboard && window.isSecureContext){ await navigator.clipboard.writeText(txt); }
+    else{
+      const ta=document.createElement('textarea'); ta.value=txt; ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+    }
+    toast('✓ تم نسخ الحديث بنجاح');
+  }catch(e){ toast('تعذّر النسخ، حاول مرة أخرى', false); }
+}
+async function shareText(txt){
+  if(navigator.share){
+    try{ await navigator.share({title:'كنز السنة', text:txt}); }catch(e){}
+  }else{
+    await copyText(txt); toast('✓ تم نسخ النص للمشاركة');
+  }
+}
+
+/* ---------- Modal ---------- */
+function openModal(hd){
+  $('#modalHadith').textContent = hd.text;
+  $('#modalNarr').textContent = hd.narr;
+  $('#modalExp').textContent = hd.exp;
+  $('#modalTitle').textContent = hd.title;
+  $('#modalLesson').textContent = hd.lesson || '';
+  $('#modalLessonWrap').classList.toggle('hidden', !hd.lesson);
+  const m = $('#modal'); m.classList.remove('hidden');
+  $('#modalCard').classList.remove('modal-in'); void $('#modalCard').offsetWidth; $('#modalCard').classList.add('modal-in');
+  document.body.classList.add('noscroll');
+}
+function closeModal(){ $('#modal').classList.add('hidden'); document.body.classList.remove('noscroll'); }
+$('#modalBack').addEventListener('click', closeModal);
+$('#modalClose').addEventListener('click', closeModal);
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+
+/* ---------- Save / Bookmark ---------- */
+function toggleSave(id){
+  const i = saved.indexOf(id);
+  if(i>-1){ saved.splice(i,1); toast('تم إزالة الحديث من المحفوظات'); }
+  else{ saved.push(id); toast('♥ تمت إضافة الحديث إلى المحفوظات'); }
+  localStorage.setItem(LS.saved, JSON.stringify(saved));
+  renderLibrary(); renderSaved(); refreshDailyFav(); updateStats();
+}
+
+/* ---------- Hadith Card Template ---------- */
+function hadithCard(hd){
+  const on = saved.includes(hd.id);
+  return `
+  <article class="rounded-[26px] bg-white dark:bg-night2 ring-soft card-shadow overflow-hidden fade-up">
+    <div class="p-5">
+      <div class="flex items-start justify-between gap-3 mb-3">
+        <div class="flex items-center gap-2">
+          <span class="w-8 h-8 rounded-xl bg-sand dark:bg-white/5 text-clay dark:text-gold text-[12px] font-bold flex items-center justify-center">${hd.id}</span>
+          <div>
+            <h4 class="font-kufi text-[15px] text-[#5A3E28] dark:text-[#EBDBBC] leading-tight">${hd.title}</h4>
+            <span class="text-[10.5px] text-clay/70 dark:text-stone-500">${hd.cat}</span>
+          </div>
+        </div>
+        <button data-fav="${hd.id}" class="w-9 h-9 rounded-full bg-sand/70 dark:bg-white/5 flex items-center justify-center press shrink-0">
+          <svg class="w-5 h-5 ${on?'text-[#C06A6A]':'text-clay dark:text-stone-400'}" viewBox="0 0 24 24" fill="${on?'currentColor':'none'}" stroke="currentColor" stroke-width="1.9"><path stroke-linecap="round" stroke-linejoin="round" d="M12 20.5s-7.5-4.7-7.5-9.8A4.2 4.2 0 0112 8.4a4.2 4.2 0 017.5 2.3c0 5.1-7.5 9.8-7.5 9.8z"/></svg>
+        </button>
+      </div>
+      <p class="font-amiri text-[19px] leading-[2.05] text-ink dark:text-stone-100">${hd.text}</p>
+      <p class="mt-3 text-[11.5px] text-clay dark:text-gold/75 font-medium">${hd.narr}</p>
+      <div class="grid grid-cols-3 gap-2 mt-4">
+        <button data-copy="${hd.id}" class="press py-2.5 rounded-xl bg-sand/70 dark:bg-white/5 text-[11.5px] font-bold text-clay-dark dark:text-stone-300">نسخ</button>
+        <button data-share="${hd.id}" class="press py-2.5 rounded-xl bg-sand/70 dark:bg-white/5 text-[11.5px] font-bold text-clay-dark dark:text-stone-300">مشاركة</button>
+        <button data-exp="${hd.id}" class="press py-2.5 rounded-xl bg-gradient-to-l from-clay to-clay-dark text-white text-[11.5px] font-bold">الشرح</button>
+      </div>
+    </div>
+  </article>`;
+}
+
+/* ---------- Library ---------- */
+function renderLibrary(){
+  const q = ($('#searchInput').value || '').trim();
+  const norm = s => s.replace(/[\u064B-\u0652\u0640]/g,'').replace(/[أإآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه');
+  const nq = norm(q);
+  const list = HADITHS.filter(hd=>{
+    const catOk = activeFilter==='الكل' || hd.cat===activeFilter;
+    if(!catOk) return false;
+    if(!nq) return true;
+    return norm(hd.text+' '+hd.exp+' '+hd.title+' '+hd.narr+' '+(hd.lesson||'')).includes(nq);
+  });
+  $('#resultCount').textContent = list.length ? `عدد النتائج: ${list.length} حديثاً` : '';
+  $('#hadithList').innerHTML = list.length ? list.map(hadithCard).join('') :
+   `<div class="text-center py-16">
+      <div class="w-16 h-16 mx-auto rounded-3xl bg-sand dark:bg-night2 flex items-center justify-center mb-3">
+        <svg class="w-7 h-7 text-clay/60" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2" stroke-linecap="round"/></svg>
+      </div>
+      <p class="text-[14px] text-clay dark:text-stone-400">لا توجد نتائج مطابقة لبحثك</p>
+    </div>`;
+}
+
+/* ---------- Saved ---------- */
+function renderSaved(){
+  const list = HADITHS.filter(h=>saved.includes(h.id));
+  $('#savedList').innerHTML = list.length ? list.map(hadithCard).join('') :
+   `<div class="text-center py-20">
+      <div class="w-20 h-20 mx-auto rounded-[28px] bg-gradient-to-br from-[#F6E4E4] to-[#EBD0D0] dark:from-night2 dark:to-[#101827] flex items-center justify-center mb-4">
+        <svg class="w-9 h-9 text-[#C08A8A]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 20.5s-7.5-4.7-7.5-9.8A4.2 4.2 0 0112 8.4a4.2 4.2 0 017.5 2.3c0 5.1-7.5 9.8-7.5 9.8z"/></svg>
+      </div>
+      <h4 class="font-kufi text-lg text-[#5A3E28] dark:text-[#EBDBBC]">لا توجد أحاديث محفوظة بعد</h4>
+      <p class="text-[13px] text-clay/80 dark:text-stone-400 mt-2 leading-relaxed">اضغط على أيقونة القلب ♥ بجانب أي حديث<br>في المكتبة ليظهر هنا</p>
+      <button data-go="library" class="nav-card mt-5 px-6 py-3 rounded-2xl bg-gradient-to-l from-clay to-clay-dark text-white text-[13px] font-bold press">تصفّح المكتبة</button>
+    </div>`;
+}
+
+/* ---------- Adhkar ---------- */
+function renderAdhkarCats(){
+  $('#adhkarCats').innerHTML = ADHKAR.map(c=>{
+    const st = adhkarState[c.id] || {};
+    const done = c.items.filter((it,i)=> (st[i]??it.c) === 0).length;
+    const pct = Math.round(done/c.items.length*100);
+    return `
+    <button data-cat="${c.id}" class="cat-card press text-right rounded-[26px] p-4 bg-white dark:bg-night2 ring-soft card-shadow relative overflow-hidden">
+      <div class="w-12 h-12 rounded-2xl bg-gradient-to-br ${c.color} flex items-center justify-center text-[22px] shadow-md">${c.icon}</div>
+      <h4 class="font-kufi text-[15.5px] text-[#5A3E28] dark:text-[#EBDBBC] mt-3">${c.title}</h4>
+      <p class="text-[11px] text-clay/75 dark:text-stone-400 mt-1 leading-relaxed">${c.sub}</p>
+      <div class="flex items-center gap-2 mt-3">
+        <div class="flex-1 h-1.5 rounded-full bg-sand2 dark:bg-white/10 overflow-hidden">
+          <div class="h-full rounded-full ${pct===100?'bg-[#4F7A5B]':'bg-clay'}" style="width:${pct}%"></div>
+        </div>
+        <span class="text-[10.5px] font-bold ${pct===100?'text-[#4F7A5B]':'text-clay/70 dark:text-stone-400'}">${pct}%</span>
+      </div>
+    </button>`;
+  }).join('');
+}
+
+function openAdhkarCat(id){
+  currentCat = ADHKAR.find(c=>c.id===id);
+  $('#adhkarCats').classList.add('hidden');
+  $('#adhkarDetail').classList.remove('hidden');
+  $('#adhkarTitle').textContent = currentCat.title;
+  renderAdhkarItems();
+  window.scrollTo({top:0,behavior:'smooth'});
+  $('#headerSub').textContent = currentCat.sub;
+}
+
+function renderAdhkarItems(){
+  const c = currentCat;
+  const st = adhkarState[c.id] = adhkarState[c.id] || {};
+  $('#adhkarList').innerHTML = c.items.map((it,i)=>{
+    const rem = st[i] ?? it.c;
+    const done = rem === 0;
+    return `
+    <article data-idx="${i}" class="dhikr press cursor-pointer rounded-[26px] p-5 ring-soft card-shadow transition-colors duration-300 ${done?'bg-[#E8F2E8] dark:bg-[#14301F]':'bg-white dark:bg-night2'}">
+      <div class="flex items-start justify-between gap-3">
+        <span class="text-[10.5px] font-bold px-2.5 py-1 rounded-lg ${done?'bg-[#4F7A5B] text-white':'bg-sand dark:bg-white/5 text-clay dark:text-gold'}">${i+1}</span>
+        <div class="flex items-center gap-2">
+          ${done?`<span class="text-[11px] font-bold text-[#3F6B4C] dark:text-[#8FD3A3] flex items-center gap-1">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>تم</span>`:''}
+          <div class="w-12 h-12 rounded-2xl flex flex-col items-center justify-center font-bold transition-colors ${done?'bg-[#4F7A5B] text-white':'bg-gradient-to-br from-clay to-clay-dark text-white'} shadow-md">
+            <span class="text-[16px] leading-none">${rem}</span>
+            <span class="text-[8.5px] opacity-80 mt-0.5">من ${it.c}</span>
+          </div>
+        </div>
+      </div>
+      <p class="font-amiri text-[19px] leading-[2.1] mt-3 ${done?'text-[#2F4A36] dark:text-[#C8E6CF]':'text-ink dark:text-stone-100'}">${it.t.replace(/\n/g,'<br>')}</p>
+      <p class="mt-3 text-[11px] leading-relaxed ${done?'text-[#4F7A5B] dark:text-[#8FD3A3]':'text-clay/80 dark:text-stone-500'}">${it.n}</p>
+      <div class="flex gap-2 mt-4">
+        <button data-dcopy="${i}" class="flex-1 py-2 rounded-xl bg-sand/70 dark:bg-white/5 text-[11.5px] font-bold text-clay-dark dark:text-stone-300">نسخ الذكر</button>
+        <button data-dreset="${i}" class="px-4 py-2 rounded-xl bg-sand/70 dark:bg-white/5 text-[11.5px] font-bold text-clay-dark dark:text-stone-300">تصفير</button>
+      </div>
+    </article>`;
+  }).join('');
+  updateAdhkarProgress();
+}
+
+function updateAdhkarProgress(){
+  const c = currentCat; if(!c) return;
+  const st = adhkarState[c.id] || {};
+  const done = c.items.filter((it,i)=>(st[i]??it.c)===0).length;
+  const pct = Math.round(done/c.items.length*100);
+  $('#adhkarBar').style.width = pct+'%';
+  $('#adhkarProgressTxt').textContent = `أتممت ${done} من ${c.items.length} ذكراً — ${pct}%`;
+  localStorage.setItem(LS.adhkar, JSON.stringify(adhkarState));
+  updateStats();
+}
+
+function tapDhikr(i){
+  const c = currentCat, st = adhkarState[c.id];
+  const cur = st[i] ?? c.items[i].c;
+  if(cur<=0) return;
+  st[i] = cur-1;
+  if(navigator.vibrate) navigator.vibrate(st[i]===0?[30,40,30]:12);
+  const card = $(`.dhikr[data-idx="${i}"]`);
+  renderAdhkarItems();
+  if(st[i]===0) toast('✓ أتممت هذا الذكر، تقبّل الله منك');
+  const nc = $(`.dhikr[data-idx="${i}"]`); if(nc){ nc.style.transform='scale(.985)'; setTimeout(()=>nc.style.transform='',160); }
+}
+
+$('#adhkarList').addEventListener('click', e=>{
+  const cp = e.target.closest('[data-dcopy]');
+  if(cp){ e.stopPropagation(); copyText(currentCat.items[+cp.dataset.dcopy].t); return; }
+  const rs = e.target.closest('[data-dreset]');
+  if(rs){ e.stopPropagation(); const i=+rs.dataset.dreset; adhkarState[currentCat.id][i]=currentCat.items[i].c; renderAdhkarItems(); return; }
+  const d = e.target.closest('.dhikr');
+  if(d) tapDhikr(+d.dataset.idx);
+});
+$('#adhkarCats').addEventListener('click', e=>{
+  const b = e.target.closest('[data-cat]'); if(b) openAdhkarCat(b.dataset.cat);
+});
+$('#resetAdhkar').addEventListener('click', ()=>{
+  adhkarState[currentCat.id] = {}; renderAdhkarItems(); toast('تمت إعادة تعيين العدادات');
+});
+
+/* ---------- Stats ---------- */
+function updateStats(){
+  let total = 0;
+  ADHKAR.forEach(c=>{ const st=adhkarState[c.id]||{}; total += c.items.filter((it,i)=>(st[i]??it.c)===0).length; });
+  $('#statAdhkar').textContent = total;
+  $('#statSaved').textContent = saved.length;
+}
+
+/* ---------- Navigation ---------- */
+const TITLES = {
+  home:['كنز السنة','صحيح البخاري ومسلم'],
+  library:['مكتبة الأحاديث','٢٥ حديثاً صحيحاً بالشرح'],
+  adhkar:['الأذكار الشاملة','حصن المسلم من الكتاب والسنة'],
+  saved:['محفوظاتي','أحاديثك المفضلة']
+};
+function go(view){
+  if(view==='adhkar' && currentView==='adhkar' && currentCat){ /* stay */ }
+  currentView = view;
+  $$('.view').forEach(v=>v.classList.remove('active'));
+  $('#view-'+view).classList.add('active');
+  $('#headerTitle').textContent = TITLES[view][0];
+  $('#headerSub').textContent = TITLES[view][1];
+  $('#backBtn').classList.toggle('hidden', view==='home');
+  $$('.tab').forEach(t=>{
+    const on = t.dataset.go===view;
+    t.classList.toggle('bg-sand', on && !document.documentElement.classList.contains('dark'));
+    t.classList.toggle('bg-white/5', on && document.documentElement.classList.contains('dark'));
+    t.classList.toggle('text-clay-dark', on);
+    t.classList.toggle('dark:text-gold', on);
+    t.classList.toggle('text-clay/50', !on);
+    t.classList.toggle('dark:text-stone-500', !on);
+  });
+  if(view==='adhkar'){ currentCat=null; $('#adhkarCats').classList.remove('hidden'); $('#adhkarDetail').classList.add('hidden'); renderAdhkarCats(); }
+  if(view==='library') renderLibrary();
+  if(view==='saved') renderSaved();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.addEventListener('click', e=>{
+  const n = e.target.closest('[data-go]');
+  if(n && (n.classList.contains('nav-card')||n.classList.contains('tab'))) go(n.dataset.go);
+});
+$('#backBtn').addEventListener('click', ()=>{
+  if(currentView==='adhkar' && currentCat){ currentCat=null; $('#adhkarDetail').classList.add('hidden'); $('#adhkarCats').classList.remove('hidden'); renderAdhkarCats(); $('#headerSub').textContent=TITLES.adhkar[1]; return; }
+  go('home');
+});
+
+/* ---------- Delegated hadith actions ---------- */
+document.addEventListener('click', e=>{
+  const f = e.target.closest('[data-fav]'); if(f){ toggleSave(+f.dataset.fav); return; }
+  const c = e.target.closest('[data-copy]'); if(c){ copyText(plainHadith(HADITHS.find(h=>h.id===+c.dataset.copy))); return; }
+  const s = e.target.closest('[data-share]'); if(s){ shareText(plainHadith(HADITHS.find(h=>h.id===+s.dataset.share))); return; }
+  const x = e.target.closest('[data-exp]'); if(x){ openModal(HADITHS.find(h=>h.id===+x.dataset.exp)); return; }
+});
+
+/* ---------- Search & Filters ---------- */
+$('#searchInput').addEventListener('input', renderLibrary);
+function paintChips(){
+  $$('.chip').forEach(ch=>{
+    const on = ch.dataset.filter===activeFilter;
+    ch.className = `chip shrink-0 px-4 py-1.5 rounded-full text-[12px] font-bold press transition-colors ${on?'bg-gradient-to-l from-clay to-clay-dark text-white shadow-md':'bg-white dark:bg-night2 ring-soft text-clay dark:text-stone-400'}`;
+  });
+}
+$$('.chip').forEach(ch=>ch.addEventListener('click',()=>{ activeFilter=ch.dataset.filter; paintChips(); renderLibrary(); }));
+
+/* ---------- Init ---------- */
+paintChips();
+renderLibrary(); renderSaved(); renderAdhkarCats(); refreshDailyFav(); updateStats(); go('home');
+
+/* ---------- Splash ---------- */
+setTimeout(()=>{ $('#splashBar').style.width='100%'; }, 120);
+window.addEventListener('load', ()=>{
+  setTimeout(()=>{
+    const sp = $('#splash');
+    sp.style.opacity='0'; sp.style.visibility='hidden';
+    $('#app').classList.remove('opacity-0');
+    setTimeout(()=>sp.remove(), 900);
+  }, 2400);
+});
+</script>
+</body>
+</html>
